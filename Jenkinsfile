@@ -10,7 +10,7 @@ node {
     mvnHome = tool 'M3'
   }
   stage('Eureka Server') {
-    dir('ms-cloudnative/eureka-server') {
+    dir('eureka-server') {
       stage('Build - Eureka Server') {
         // Run the maven build
         if (isUnix()) {
@@ -23,12 +23,12 @@ node {
         archiveArtifacts 'target/*.jar'
       }
       stage('Docker - Eureka Server') {
-        docker.build("ms-cloudnative/eureka-server")
+        docker.build("eureka-server")
       }
     }   
   }
   stage('Product API') {
-    dir('ms-cloudnative/product') {
+    dir('product') {
       stage('Build - Product API') {
         // Run the maven build
         if (isUnix()) {
@@ -42,7 +42,7 @@ node {
         archiveArtifacts 'target/*.jar'
       }
       stage('Docker - Product API') {
-        docker.build("ms-cloudnative/product-api")
+        docker.build("product-api")
       }
     }
   }
