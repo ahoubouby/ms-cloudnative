@@ -3,14 +3,14 @@ node {
   def mvnHome
   stage('Preparation') { // for display purposes
     // Get some code from a GitHub repository
-    git 'https://github.com/write2munish/CloudNativeJava.git'
+    git 'https://github.com/ahoubouby/ms-cloudnative.git'
     // Get the Maven tool.
     // ** NOTE: This 'M3' Maven tool must be configured
     // **       in the global configuration.
     mvnHome = tool 'M3'
   }
   stage('Eureka Server') {
-    dir('chapter-06/eureka-server') {
+    dir('ms-cloudnative/eureka-server') {
       stage('Build - Eureka Server') {
         // Run the maven build
         if (isUnix()) {
@@ -23,12 +23,12 @@ node {
         archiveArtifacts 'target/*.jar'
       }
       stage('Docker - Eureka Server') {
-        docker.build("cloudnativejava/eureka-server")
+        docker.build("ms-cloudnative/eureka-server")
       }
     }   
   }
   stage('Product API') {
-    dir('chapter-06/product') {
+    dir('ms-cloudnative/product') {
       stage('Build - Product API') {
         // Run the maven build
         if (isUnix()) {
@@ -42,7 +42,7 @@ node {
         archiveArtifacts 'target/*.jar'
       }
       stage('Docker - Product API') {
-        docker.build("cloudnativejava/product-api")
+        docker.build("ms-cloudnative/product-api")
       }
     }
   }
